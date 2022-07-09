@@ -1,0 +1,33 @@
+1. 
+    ['Tesla', 'Mercedes', 'Honda']
+    Error - otherRandomCar not found
+
+    RESULT: Incorrect.
+
+2. 
+    Error - name not found.
+    Elon
+
+    RESULT: Correct.
+
+3.
+    12345
+    Error - no attribute of password in person.
+
+    RESULT: Partially correct - it was a value of undefined, not an error.
+
+4.
+    (first = 2, second = 5, third = 2)
+
+    false
+    true
+
+    RESULT: Correct.
+
+5.
+    value
+    [1, 5, 1, 8, 3, 3]
+    1
+    5
+
+    RESULT: Correct!
