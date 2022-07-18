@@ -7,6 +7,7 @@ const Form = (props) => {
     const [password, setPassword] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
 
+
     // Styling for form data at the bottom of page
     const formDataDivStyle = {
         textAlign: "left", 
@@ -32,10 +33,18 @@ const Form = (props) => {
         marginLeft: "20px",
     }
 
+    //Styling to make the errors colored red
+    const redError = {
+        color: "red",
+    }
+
+
     return (
         <div >
             {/* This is for the form. Using onChange to capture what's in the field */}
             <form style={{ marginTop: "20px" }}>
+
+                {/* Input for First Name */}
                 <div style ={inputDataDivStyle}>
                     <label htmlFor="firstName">First Name: </label>
                     <input 
@@ -44,6 +53,13 @@ const Form = (props) => {
                         onChange={ (e) => setFirstName(e.target.value) }
                     />
                 </div>
+
+                {/* Error Message that will display when First Name is less than 2, but greater than 0 */}
+                {firstName.length < 2 && firstName.length > 0 ? (
+                <p style={redError}>First Name must be 2 characters or longer!</p>
+                ) : null}
+
+                {/* Input for Last Name */}
                 <div style ={inputDataDivStyle}>
                     <label htmlFor="lastName">Last Name: </label>
                     <input 
@@ -52,6 +68,13 @@ const Form = (props) => {
                         onChange={ (e) => setLastName(e.target.value) }
                     />
                 </div>
+
+                {/* Error Message that will display when Last Name is less than 2, but greater than 0 */}
+                {lastName.length < 2 && lastName.length > 0 ? (
+                <p style={redError}>Last Name must be 2 characters or longer!</p>
+                ) : null}
+
+                {/* Input for Email */}
                 <div style ={inputDataDivStyle}>
                     <label htmlFor="email">Email: </label>
                     <input 
@@ -60,6 +83,13 @@ const Form = (props) => {
                         onChange={ (e) => setEmail(e.target.value) }
                     />
                 </div>
+
+                {/* Error Message that will display when Email is less than 5, but greater than 0 */}
+                {email.length < 5 && email.length > 0 ? (
+                <p style={redError}>Email must be 5 characters or longer!</p>
+                ) : null}
+
+                {/* Input for Password */}
                 <div style ={inputDataDivStyle}>
                     <label htmlFor="password">Password: </label>
                     <input 
@@ -68,6 +98,8 @@ const Form = (props) => {
                         onChange={ (e) => setPassword(e.target.value) }
                     />
                 </div>
+
+                {/* Input for Confirm Password */}
                 <div style ={inputDataDivStyle}>
                     <label htmlFor="confirmPass">Confirm Password: </label>
                     <input 
@@ -76,6 +108,12 @@ const Form = (props) => {
                         onChange={ (e) => setConfirmPass(e.target.value) }
                     />
                 </div>
+                
+                {/* Error Message that will display if passwords do not match */}
+                {password !== confirmPass ? (
+                <p style={redError}>Passwords do not match!</p>
+                ) : null}
+
             </form>
     
             {/* This section is to display the data that the user entered in the form. */}
