@@ -1,0 +1,10 @@
+.formBar {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.button {
+    margin-left: 10px;
+    width: 60px;
+    border-radius: 10px;
+}
