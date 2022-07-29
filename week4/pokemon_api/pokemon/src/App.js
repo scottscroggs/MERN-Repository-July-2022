@@ -1,20 +1,28 @@
 import React, {useEffect, useState} from 'react'
 import './App.css';
+import axios from 'axios';
 
 function App() {
   const [pokemon, setPokemon] = useState([]);
   
   useEffect(() => { 
-    fetch("https://pokeapi.co/api/v2/pokemon")
-        .then(response => {
-          return response.json();
+    // fetch("https://pokeapi.co/api/v2/pokemon")
+    //     .then(response => {
+    //       return response.json();
 
-      }).then(response => {
-          setPokemon(response.results)
+    //   }).then(response => {
+    //       setPokemon(response.results)
 
-      }).catch(err=>{
-          console.log(err);
+    //   }).catch(err=>{
+    //       console.log(err);
+    //   });
+
+    //Using Axios instead of the Fetch method shown above.
+    axios.get("https://pokeapi.co/api/v2/pokemon")
+      .then(response => {
+        setPokemon(response.data.results)
       });
+
     }) 
   return (
     <div className="App">
