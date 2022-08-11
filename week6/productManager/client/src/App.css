@@ -3,15 +3,43 @@
   justify-content: center;
 }
 
+.productContainer {
+  display:flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.product {
+  border: 1px solid rgb(200, 200, 200);
+  padding: 20px;
+  width: 400px;
+}
+
+.productRow{
+  margin-bottom: 15px;
+}
+
+.largeText {
+  font-size: larger;
+  margin-right: 50px;
+}
+
 .form {
   border: 1px solid rgb(200, 200, 200);
   padding: 20px;
   min-width: 400px;
-
 }
 
-.btn-primary {
+.bold {
+  font-weight:600;
+}
+
+.btn-wide {
   width:100%;
+}
+
+.btn-secondary {
+  margin-right: 10px;
 }
 
 .App {

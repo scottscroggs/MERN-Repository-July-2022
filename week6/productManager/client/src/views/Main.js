@@ -9,11 +9,15 @@ const Main = (props) => {
 
     const [product, setProduct] = useState([]);
 
+    const removeFromDom = productId => {
+        setProduct(product.filter(product => product._id != productId)); //We could also write this in our PersonList component
+    }
+
     return (
         <div>
             <ProductForm product={product} setProduct={setProduct} />
             <hr/>
-            <ProductList product={product} setProduct={setProduct} />
+            <ProductList product={product} setProduct={setProduct} removeFromDom={removeFromDom} />
         </div>
     )
 }
