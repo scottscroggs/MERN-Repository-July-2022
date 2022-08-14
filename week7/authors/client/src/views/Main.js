@@ -10,7 +10,7 @@ const Main = (props) => {
     const [author, setAuthor] = useState([]);
 
     const removeFromDom = authorId => {
-        setAuthor(author.filter(author => author._id != authorId)); //We could also write this in our PersonList component
+        setAuthor(author.filter(author => author._id !== authorId)); //We could also write this in our PersonList component
     }
 
     return (

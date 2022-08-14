@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-const AuthorForm = (props) => {
+import {useNavigate, Link} from 'react-router-dom';
+
+const AuthorForm = () => {
     //keep track of what is being typed via useState hook
     const [name, setName] = useState(""); 
-
-    //Deconstructing the Props - this is needed so that when a new record is added, the state can be updated to display immediately.
-    const {author, setAuthor} = props;
+    const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
 
     //handler when the form is submitted
     const onSubmitHandler = (e) => {
@@ -18,21 +19,19 @@ const AuthorForm = (props) => {
             .then(res=>{
                 console.log(res); // always console log to get used to tracking your data!
                 console.log(res.data);
-
-                //Updating the Lifted State of our records array to include the current value in state, plus the newly created object from our POST request.
-                setAuthor([...author, res.data]);
-
-                e.target.reset();
+                navigate('/');
             })
-            .catch(err=>console.log(err))
-        
+            .catch((err)=> {
+                console.log(err); 
+                setErrors(err.response.data.errors);
+            });
     }
     
     return (
         <div>
-            <h1>Favorite Authors:</h1>
+            <Link to={"/"}> Home</Link><br></br><br></br>
+            <p>Add an Author:</p>
             <div className="formContainer">
-                
                 <form className="form" onSubmit={onSubmitHandler}>
                     <p>
                         <label>Name:</label><br/>
@@ -40,6 +39,7 @@ const AuthorForm = (props) => {
                             runs this arrow function, setting that event's target's (input) 
                             value (what's typed into the input) to our updated state   */}
                         <input className="form-control" type="text" onChange = {(e)=>setName(e.target.value)}/>
+                        {errors.name ? <p className="text-danger">{errors.name.message}</p> : null}
                     </p>
                     <input className="btn btn-primary btn-wide" type="submit"/>
                 </form>

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import {useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams, Link} from "react-router-dom";
 
 
 const AuthorUpdate = (props) => {
     const { id } = useParams(); //this process is identical to the one we used with our Details.js component
     const [name, setName] = useState(""); 
+    const [errors, setErrors] = useState([]);
 
     const navigate = useNavigate();
     
@@ -19,6 +20,7 @@ const AuthorUpdate = (props) => {
             })
             .catch(err => console.log(err));
     }, [])
+
     const updateAuthor = (e) => {
         e.preventDefault();
         axios.put('http://localhost:8000/api/author/' + id, {
@@ -26,13 +28,17 @@ const AuthorUpdate = (props) => {
         })
             .then(res => {
                 console.log(res);
-                navigate("/"); // this will take us back to the Main.js
+                navigate("/");
             })
-            .catch(err => console.log(err))
+            .catch((err) => {
+                console.log(err);
+                setErrors(err.response.data.errors);
+            })
     }
     return (
         <div>
-            <h1>Update an Author</h1>
+            <Link to={"/"}> Home</Link><br></br><br></br>
+            <p>Update an Author:</p>
             <div className="formContainer">
                 <form className="form" onSubmit={updateAuthor}>
                     <p>
@@ -42,6 +48,7 @@ const AuthorUpdate = (props) => {
                         name="name" 
                         value={name} 
                         onChange={(e) => { setName(e.target.value) }} />
+                        {errors.name ? <p className="text-danger">{errors.name.message}</p> : null}
                     </p>
                     <input className = "btn btn-primary btn-wide" type="submit" />
                 </form>

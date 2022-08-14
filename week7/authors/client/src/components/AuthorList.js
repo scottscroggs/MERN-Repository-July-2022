@@ -7,8 +7,12 @@ const AuthorList = (props) => {
     via props by the parent component (app.js) to our child 
     component (ProductList.js). Now we can easily use the getter 
     and setter without having to write props.getter or props.setter every time: */
-    const {author, setAuthor, removeFromDom} = props;
     const navigate = useNavigate();
+    const [author, setAuthor] = useState([]);
+
+    const removeFromDom = authorId => {
+        setAuthor(author.filter(author => author._id !== authorId)); //We could also write this in our PersonList component
+    }
     
     useEffect(()=>{
         axios.get("http://localhost:8000/api/author")
@@ -31,24 +35,39 @@ const AuthorList = (props) => {
     
     return (
         <div>
-            <h2 className="authorRow">All Authors:</h2>
-            <div >
-                {
-                    author.map((author, index)=>{
-                    return <div className="authorRow" key={index}>
-                        <Link className='largeText' to={`/author/${author._id}`}> {author.name}</Link>
+            <Link to={'/new'}>New Author</Link> 
 
-                        <button className="btn btn-secondary" onClick={() => navigate(`/author/edit/${author._id}`)}>
-                            Edit
-                        </button>
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th className="largeText">Author:</th>
+                        <th className="largeText">Available Actions:</th>
+                    </tr>
+                </thead>
 
-                        <button className="btn btn-danger" onClick={(e)=>{deleteAuthor(author._id)}}>
-                            Delete
-                        </button>
-                        </div>
-                    })
-                }
-            </div>
+                <tbody>
+                    {
+                        author.map((author, index)=>{
+                        return <tr className="authorRow" key={index}>
+                            <td><Link className='largeText' to={`/author/${author._id}`}> {author.name}</Link></td>
+
+                            <td>
+                                <button className="btn btn-secondary" onClick={() => navigate(`/author/edit/${author._id}`)}>
+                                    Edit
+                                </button>
+
+                                <button className="btn btn-danger" onClick={(e)=>{deleteAuthor(author._id)}}>
+                                    Delete
+                                </button>
+                            </td>
+
+                            </tr>                       
+                        })
+                    }
+                </tbody>
+
+            </table>
+
         </div>
     )
 }

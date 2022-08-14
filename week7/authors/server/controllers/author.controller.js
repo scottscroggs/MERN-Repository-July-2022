@@ -3,9 +3,10 @@ const Author = require("../models/author.model.js")
 module.exports.createAuthor = (request, response) => {
     //Mongoose's "create" method is run using our model to add a new record.
     Author.create(request.body)
-        .then(Author => response.json(author))
-        .catch(err => response.json(err));
+        .then(author => response.json(author))
+        .catch(err => response.status(400).json(err));
 }
+
 
 //Method to Find All of the object.
 module.exports.findAllAuthors = (request, response) => {
@@ -29,9 +30,9 @@ module.exports.getAuthor = (request, response) => {
 
 //Method to Update an object
 module.exports.updateAuthor = (request, response) => {
-    Author.findOneAndUpdate({_id: request.params.id}, request.body, {new:true})
+    Author.findOneAndUpdate({_id: request.params.id}, request.body, {new:true, runValidators: true})
         .then(updatedAuthor => response.json(updatedAuthor))
-        .catch(err => response.json(err))
+        .catch(err => response.status(400).json(err));
 }
 
 //Module to Delete an object

@@ -33,7 +33,7 @@ const AuthorDetail = (props) => {
     return (
         <div className="authorContainer">
             <div className="author">
-                <h2>Author:</h2><br></br>
+                <h2>Authors:</h2><br></br>
                 <p><span className="bold">Name: </span>{author.name}</p>
                 <br></br>
                 <div><button className="btn btn-danger" onClick={deleteAuthor}>Delete</button></div>
